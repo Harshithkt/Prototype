@@ -1,0 +1,13 @@
+{
+  "name": "@behavior-analytics/sdk",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "demo": "tsx demo.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

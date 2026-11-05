@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: analytics
+      POSTGRES_PASSWORD: analytics
+      POSTGRES_DB: analytics
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./api/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # -h forces TCP: during init Postgres only listens on the unix socket,
+      # so this stays unhealthy until schema.sql has finished.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U analytics -d analytics"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:

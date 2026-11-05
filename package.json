@@ -1,0 +1,17 @@
+{
+  "name": "behavior-analytics",
+  "private": true,
+  "workspaces": ["api", "web", "sdk"],
+  "scripts": {
+    "setup": "docker compose up -d --wait && npm run seed",
+    "seed": "npm run seed -w api",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w api\" \"npm run dev -w web\"",
+    "test": "npm test -w api",
+    "build": "npm run build -w web",
+    "typecheck": "npm run typecheck -w api && npm run typecheck -w web",
+    "sdk:demo": "npm run demo -w sdk"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
